@@ -23,6 +23,17 @@ Desarrollar un sistema en el que permita:
 - Mostrar los asientos disponibles.  
 - Permitir a los clientes reservar asiento(s).  
 - Emitir un comprobante o confirmación de la reserva.
+
+## 📌 2. Diseño del Sistema  
+
+###  Clases Principales  
+- **Pelicula** → título, género, duración.  
+- **Sala** → número de sala, capacidad, lista de asientos.  
+- **Asiento** → fila, número, estado (libre/ocupado).  
+- **Funcion** → película, sala, fecha, hora, lista de asientos disponibles.  
+- **Cliente** → nombre, documento, correo.  
+- **Reserva** → cliente, función, asiento(s).  
+- **Cine** → gestiona salas, funciones, películas y reservas.
   
   ## 📌 3. Diseño de Clases para el Sistema de Reservas de Cine
 
