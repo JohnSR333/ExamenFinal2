@@ -2,45 +2,62 @@ package cine.modelos;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 public class Sala {
-    protected final int numero;
-    protected final List<Asiento> asientos;
+    private final String id;
+    private final int numero;
+    private final int filas;
+    private final int columnas;
+    private final Asiento[][] asientos;
 
     public Sala(int numero, int filas, int columnas) {
+        this.id = UUID.randomUUID().toString();
         this.numero = numero;
-        this.asientos = new ArrayList<>();
-        for (int f = 0; f < filas; f++) {
-            char fila = (char) ('A' + f);
-            for (int c = 1; c <= columnas; c++) {
-                asientos.add(new Asiento(fila, c));
+        this.filas = filas;
+        this.columnas = columnas;
+        this.asientos = new Asiento[filas][columnas];
+        for (int r = 0; r < filas; r++) {
+            char letra = (char) ('A' + r);
+            for (int c = 0; c < columnas; c++) {
+                asientos[r][c] = new Asiento(letra, c + 1);
             }
         }
     }
 
-    public List<Asiento> getAsientos() { return asientos; }
+    // constructor para carga
+    public Sala(String id, int numero, int filas, int columnas) {
+        this.id = id;
+        this.numero = numero;
+        this.filas = filas;
+        this.columnas = columnas;
+        this.asientos = new Asiento[filas][columnas];
+        for (int r = 0; r < filas; r++) {
+            char letra = (char) ('A' + r);
+            for (int c = 0; c < columnas; c++) {
+                asientos[r][c] = new Asiento(letra, c + 1);
+            }
+        }
+    }
 
-    public void mostrarDisponibilidad() {
-        System.out.println("Disponibilidad Sala #" + numero);
-        String salida = asientos.stream()
-                .map(a -> a.toString())
-                .collect(Collectors.joining(" | "));
-        System.out.println(salida);
+    public String getId() { return id; }
+    public int getNumero() { return numero; }
+    public int getFilas() { return filas; }
+    public int getColumnas() { return columnas; }
+    public Asiento[][] getAsientos() { return asientos; }
+
+    public List<Asiento> getAsientosList() {
+        List<Asiento> list = new ArrayList<>();
+        for (int r = 0; r < filas; r++) for (int c = 0; c < columnas; c++) list.add(asientos[r][c]);
+        return list;
     }
 
     public Asiento buscarAsiento(char fila, int numero) {
-        return asientos.stream()
-                .filter(a -> a.getFila() == fila && a.getNumero() == numero)
-                .findFirst()
-                .orElse(null);
-    }
-
-    public int getNumero() { return numero; }
-
-    @Override
-    public String toString() {
-        return "Sala#" + numero;
+        int row = fila - 'A';
+        int col = numero - 1;
+        if (row < 0 || row >= filas || col < 0 || col >= columnas) return null;
+        return asientos[row][col];
     }
 }
+
 
