@@ -4,11 +4,9 @@ public class PeliculaAnimada extends Pelicula {
     public PeliculaAnimada(String titulo, String genero, int duracion, String clasificacion) {
         super(titulo, genero, duracion, clasificacion);
     }
-
-    @Override
-    public void mostrarInfo() {
-        System.out.print("[Animada] ");
-        super.mostrarInfo();
+    public PeliculaAnimada(String id, String titulo, String genero, int duracion, String clasificacion) {
+        super(id, titulo, genero, duracion, clasificacion);
     }
 }
+
 
